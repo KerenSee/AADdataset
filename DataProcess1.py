@@ -11,7 +11,7 @@ class Data_Processing(nn.Module):
         self.output_directory = output_directory
         self.num_segments = num_segments
 
-    # 统计文件个数
+    #count
     def CountFiles(self, path):
         count = 0
         for files in os.listdir(path):
@@ -37,11 +37,11 @@ class Data_Processing(nn.Module):
                 output_file_name = f"{os.path.basename(file_path).split('.')[0]}_segment_{i + 1}.fif"
                 output_file_path = os.path.join(self.output_directory, output_file_name)
 
-                # 创建新的 Raw 对象
+                # New Raw
                 info = mne.create_info(ch_names=raw.ch_names, sfreq=raw.info['sfreq'], ch_types='eeg')
                 raw_segment = mne.io.RawArray(data[:, start_idx:end_idx], info)
 
-                # 保存 Raw 对象到新的文件
+                # Save Raw
                 raw_segment.save(output_file_path, overwrite=True)
 
         print("Processing completed.")
